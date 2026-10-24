@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cohiqpndtgam"]
+
+[ext_resource type="Script" uid="uid://cbutlcvjpula5" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://cmw3tn6rcgm0e" path="res://assests/enemy/stationary.png" id="2_4ra3w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8tegq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uy6h")
+}],
+"loop": 1,
+"name": &"stationary",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tegq"]
+size = Vector2(30, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sghoa"]
+size = Vector2(43, 52)
+
+[node name="enemy" type="CharacterBody2D" unique_id=1919840329]
+script = ExtResource("1_md0e3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=420010633]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_8tegq")
+animation = &"stationary"
+autoplay = "stationary"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1244810967]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_8tegq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=826613315]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=900908692]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_sghoa")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
